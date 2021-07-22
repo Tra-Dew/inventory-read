@@ -24,11 +24,23 @@ func main() {
 	itemsCreatedConsumer := &cobra.Command{
 		Use:   "items-created-consumer",
 		Short: "Starts items-created-consumer",
-		Run:   cmd.ItemsCreatedRequested,
+		Run:   cmd.ItemsCreated,
+	}
+
+	itemsUpdatedConsumer := &cobra.Command{
+		Use:   "items-updated-consumer",
+		Short: "Starts items-updated-consumer",
+		Run:   cmd.ItemsUpdated,
+	}
+
+	itemsLockCompletedConsumer := &cobra.Command{
+		Use:   "items-lock-completed-consumer",
+		Short: "Starts items-lock-completed-consumer",
+		Run:   cmd.ItemsLockCompleted,
 	}
 
 	root.PersistentFlags().String("settings", "./settings.yml", "path to settings.yaml config file")
-	root.AddCommand(api, itemsCreatedConsumer)
+	root.AddCommand(api, itemsCreatedConsumer, itemsUpdatedConsumer, itemsLockCompletedConsumer)
 
 	root.Execute()
 }

@@ -32,7 +32,8 @@ type GetItemsResponse struct {
 // Repository ...
 type Repository interface {
 	Get(ctx context.Context, req *GetItemsRequest) (*GetItemsResponse, error)
-	GetByID(ctx context.Context, userID string, id string) ([]*Item, error)
+	GetByID(ctx context.Context, userID string, id string) (*Item, error)
+	GetByIDs(ctx context.Context, ids []string) ([]*Item, error)
 	GetUserItems(ctx context.Context, userID string, req *GetItemsRequest) (*GetItemsResponse, error)
 
 	InsertBulk(ctx context.Context, items []*Item) error

@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// ItemsCreated ...
-func ItemsCreated(command *cobra.Command, args []string) {
+// ItemsLockCompleted ...
+func ItemsLockCompleted(command *cobra.Command, args []string) {
 	settings := new(core.Settings)
 
 	err := core.FromYAML(command.Flag("settings").Value.String(), settings)
@@ -26,25 +26,41 @@ func ItemsCreated(command *cobra.Command, args []string) {
 	consumer := core.NewMessageBrokerSubscriber(
 		core.WithSessionSNS(container.SNS),
 		core.WithSessionSQS(container.SQS),
-		core.WithSubscriberID(settings.Events.ItemsCreated),
+		core.WithSubscriberID(settings.Events.ItemsLockCompleted),
 		core.WithMaxRetries(3),
-		core.WithType(reflect.TypeOf(inventory.ItemsCreatedEvent{})),
-		core.WithTopicID(settings.Events.ItemsCreated),
+		core.WithType(reflect.TypeOf(inventory.ItemsLockCompletedEvent{})),
+		core.WithTopicID(settings.Events.ItemsLockCompleted),
 		core.WithHandler(func(payload interface{}) error {
-			message := payload.(*inventory.ItemsCreatedEvent)
+			message := payload.(*inventory.ItemsLockCompletedEvent)
 
 			logrus.Info("processing received event")
 
 			ctx := context.Background()
 
-			if err := container.InventoryRepository.InsertBulk(ctx, message.ToDomain()); err != nil {
+			ids := make([]string, len(message.Items))
+			for i, item := range message.Items {
+				ids[i] = item.ID
+			}
+
+			items, err := container.InventoryRepository.GetByIDs(ctx, ids)
+
+			if err != nil {
 				logrus.
 					WithError(err).
-					Error("error while inserting items")
+					Error("error while getting items")
 				return err
 			}
 
-			logrus.Info("items inserted successfully")
+			logrus.Infof("found %d to update", len(items))
+
+			if err := container.InventoryRepository.UpdateBulk(ctx, message.ToDomain(items)); err != nil {
+				logrus.
+					WithError(err).
+					Error("error while updating items")
+				return err
+			}
+
+			logrus.Info("items updated successfully")
 
 			return nil
 		}))

@@ -1,4 +1,4 @@
-module github.com/Tra-Dew/inventory-read
+module github.com/d-leme/tradew-inventory-read
 
 go 1.16
 

@@ -3,11 +3,11 @@ package cmd
 import (
 	"context"
 
-	"github.com/Tra-Dew/inventory-read/pkg/core"
-	"github.com/Tra-Dew/inventory-read/pkg/inventory"
-	"github.com/Tra-Dew/inventory-read/pkg/inventory/mongodb"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/d-leme/tradew-inventory-read/pkg/core"
+	"github.com/d-leme/tradew-inventory-read/pkg/inventory"
+	"github.com/d-leme/tradew-inventory-read/pkg/inventory/mongodb"
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

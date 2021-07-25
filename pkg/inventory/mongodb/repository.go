@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/Tra-Dew/inventory-read/pkg/inventory"
+	"github.com/d-leme/tradew-inventory-read/pkg/inventory"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"

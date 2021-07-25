@@ -4,8 +4,8 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/Tra-Dew/inventory-read/pkg/core"
-	"github.com/Tra-Dew/inventory-read/pkg/inventory"
+	"github.com/d-leme/tradew-inventory-read/pkg/core"
+	"github.com/d-leme/tradew-inventory-read/pkg/inventory"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

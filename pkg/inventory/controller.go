@@ -3,7 +3,7 @@ package inventory
 import (
 	"net/http"
 
-	"github.com/Tra-Dew/inventory-read/pkg/core"
+	"github.com/d-leme/tradew-inventory-read/pkg/core"
 	"github.com/gin-gonic/gin"
 )
 

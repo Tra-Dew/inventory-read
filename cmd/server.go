@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/Tra-Dew/inventory-read/pkg/core"
+	"github.com/d-leme/tradew-inventory-read/pkg/core"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"

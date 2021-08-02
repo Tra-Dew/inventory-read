@@ -42,18 +42,7 @@ func ItemsUpdated(command *cobra.Command, args []string) {
 				ids[i] = item.ID
 			}
 
-			items, err := container.InventoryRepository.GetByIDs(ctx, ids)
-
-			if err != nil {
-				logrus.
-					WithError(err).
-					Error("error while getting items")
-				return err
-			}
-
-			logrus.Infof("found %d to update", len(items))
-
-			if err := container.InventoryRepository.UpdateBulk(ctx, message.ToDomain(items)); err != nil {
+			if err := container.InventoryRepository.UpdateBulk(ctx, message.ToDomain()); err != nil {
 				logrus.
 					WithError(err).
 					Error("error while updating items")

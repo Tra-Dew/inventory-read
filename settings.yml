@@ -11,6 +11,4 @@ mongodb:
   database: inventory
   connection_string: mongodb://0.0.0.0:27017
 events:
-  items-created: items-created
   items-updated: items-updated
-  items-lock-completed: items-lock-completed

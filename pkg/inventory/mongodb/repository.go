@@ -159,6 +159,7 @@ func (repository *repositoryMongoDB) UpdateBulk(ctx context.Context, items []*in
 		model := mongo.NewUpdateOneModel()
 		model.SetFilter(bson.M{"_id": item.ID})
 		model.SetUpdate(bson.M{"$set": item})
+		model.SetUpsert(true)
 		models[i] = model
 	}
 

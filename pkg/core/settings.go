@@ -29,7 +29,5 @@ type MongoDBConfig struct {
 
 // Events ...
 type Events struct {
-	ItemsCreated       string `yaml:"items-created"`
-	ItemsUpdated       string `yaml:"items-updated"`
-	ItemsLockCompleted string `yaml:"items-lock-completed"`
+	ItemsUpdated string `yaml:"items-updated"`
 }

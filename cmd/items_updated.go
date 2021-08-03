@@ -37,11 +37,6 @@ func ItemsUpdated(command *cobra.Command, args []string) {
 
 			ctx := context.Background()
 
-			ids := make([]string, len(message.Items))
-			for i, item := range message.Items {
-				ids[i] = item.ID
-			}
-
 			if err := container.InventoryRepository.UpdateBulk(ctx, message.ToDomain()); err != nil {
 				logrus.
 					WithError(err).

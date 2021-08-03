@@ -5,6 +5,7 @@ import (
 
 	"github.com/d-leme/tradew-inventory-read/pkg/core"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 // Controller ...
@@ -43,6 +44,7 @@ func (c *Controller) get(ctx *gin.Context) {
 	res, err := c.repository.Get(ctx, req)
 
 	if err != nil {
+		logrus.WithError(err).Error("error while getting items")
 		core.HandleRestError(ctx, err)
 		return
 	}
@@ -62,6 +64,10 @@ func (c *Controller) getMyItems(ctx *gin.Context) {
 	res, err := c.repository.GetUserItems(ctx, userID, req)
 
 	if err != nil {
+		logrus.
+			WithError(err).
+			WithField("user_id", userID).
+			Error("error while getting items")
 		core.HandleRestError(ctx, err)
 		return
 	}
@@ -70,12 +76,19 @@ func (c *Controller) getMyItems(ctx *gin.Context) {
 }
 
 func (c *Controller) getByID(ctx *gin.Context) {
-	userID := ctx.GetString("user_id")
 	id := ctx.Param("id")
+	userID := ctx.GetString("user_id")
 
 	res, err := c.repository.GetByID(ctx, userID, id)
 
 	if err != nil {
+		logrus.
+			WithError(err).
+			WithFields(logrus.Fields{
+				"item_id": id,
+				"user_id": userID,
+			}).
+			Error("error while getting items")
 		core.HandleRestError(ctx, err)
 		return
 	}

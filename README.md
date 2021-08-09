@@ -1,5 +1,7 @@
 # Tradew Inventory Read
 
+<div align="center"><img src="docs/logo.png" alt="logo" width="300"/></div>
+
 ## Overview
 The `inventory-read` microservice is a read only service, from the the `inventory` API. It's responsible for managing queries of all items
 
